@@ -16,7 +16,7 @@ listPosts.init = function() {
 			listPosts.render( posts );
 	  } else {
 	    console.log( request );
-	  }
+	  } // Test
 	};
 
 	request.onerror = function() {
