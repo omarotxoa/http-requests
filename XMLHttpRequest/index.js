@@ -11,9 +11,7 @@ listPosts.init = function() {
 
 	request.onload = function() {
 	  if (request.status >= 200 && request.status < 400) {
-	    // Success!
 	    let posts = JSON.parse(request.responseText);
-			// console.log( data );
 			listPosts.clearPosts();
 			listPosts.render( posts );
 	  } else {
@@ -22,7 +20,7 @@ listPosts.init = function() {
 	};
 
 	request.onerror = function() {
-	  console.log( 'A network error has occured' );
+	  console.log( 'An error has occured' );
 	};
 
 	request.open('GET', apiRoot + '/wp/v2/posts', true);
@@ -33,11 +31,7 @@ listPosts.init = function() {
 listPosts.init();
 
 
-/**
- * renderPost - Display posts on the page
- *
- * @param  {Array} posts Array of Posts in JSON
- */
+/** Display posts on the page */
 listPosts.render = function( posts ) {
 	for ( let post of posts ) {
 		listPosts.renderPost( post );
@@ -45,31 +39,22 @@ listPosts.render = function( posts ) {
 };
 
 
-/**
- * renderPost - Displays an individual post on the page
- *
- * @param  {Object} post Individual post
- */
+/** Displays an individual post on the page */
 listPosts.renderPost = function( post ) {
 
-  const articleEl = document.createElement( 'article' ),
-		titleEl = listPosts.getTitleMarkup( post ),
-		contentEl = listPosts.getContentMarkup( post );
+  const article = document.createElement( 'article' ),
+		title = listPosts.getTitleMarkup( post ),
+		content = listPosts.getContentMarkup( post );
 
-	articleEl.classList.add('post');
-	articleEl.appendChild( titleEl );
-	articleEl.appendChild( contentEl );
-	articleContainer.appendChild(articleEl);
+	article.classList.add('post');
+	article.appendChild( title );
+	article.appendChild( content );
+	articleContainer.appendChild(article);
 
 };
 
 
-/**
- * getTitleMarkup - Get the markup for a post title
- *
- * @param  {Object} post Individual post from the API
- * @return {Object}      Title markup with link and post title
- */
+/** Get the markup for a post title */
 listPosts.getTitleMarkup = function( post ) {
 
 	const titleEl = document.createElement( 'h2' ),
@@ -87,12 +72,7 @@ listPosts.getTitleMarkup = function( post ) {
 };
 
 
-/**
- * getContentMarkup - Get the markup for post content
- *
- * @param  {Object} post Individual post from the API
- * @return {Object}      Content markup with content
- */
+/** Get the markup for post content */
 listPosts.getContentMarkup = function( post ) {
 	const contentEl = document.createElement( 'div' ),
 			content = document.createTextNode('');
@@ -106,10 +86,7 @@ listPosts.getContentMarkup = function( post ) {
 };
 
 
-/**
- * clearPosts - Clear posts from page
- *
- */
+/** clearPosts - Clear posts from page */
 listPosts.clearPosts = function() {
 		articleContainer.innerHTML = '';
 };
